@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>andy.yang-blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="回调地狱 多层回调函数的相互嵌套，就会形成回调地狱，如下：  123456789setTimeout(function() &amp;#123;	&#x2F;&#x2F; 第一层回调函数    console.log(&amp;#x27;1秒后输出&amp;#x27;)    setTimeout(function() &amp;#123;	&#x2F;&#x2F; 第二层回调函数        console.log(&amp;#x27;2秒后输出&amp;#x27;)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="andy.yang-blog">
+<meta property="og:url" content="https://andy.yang.github.io/2023/05/27/Promise/">
+<meta property="og:site_name" content="andy.yang-blog">
+<meta property="og:description" content="回调地狱 多层回调函数的相互嵌套，就会形成回调地狱，如下：  123456789setTimeout(function() &amp;#123;	&#x2F;&#x2F; 第一层回调函数    console.log(&amp;#x27;1秒后输出&amp;#x27;)    setTimeout(function() &amp;#123;	&#x2F;&#x2F; 第二层回调函数        console.log(&amp;#x27;2秒后输出&amp;#x27;)">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-05-27T09:12:08.880Z">
+<meta property="article:modified_time" content="2023-05-27T09:14:37.544Z">
+<meta property="article:author" content="Andy.yang">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="andy.yang-blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">andy.yang-blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://andy.yang.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Promise" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/05/27/Promise/" class="article-date">
+  <time class="dt-published" datetime="2023-05-27T09:12:08.880Z" itemprop="datePublished">2023-05-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="回调地狱"><a href="#回调地狱" class="headerlink" title="回调地狱"></a>回调地狱</h3><blockquote>
+<p>多层回调函数的相互嵌套，就会形成回调地狱，如下：</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">setTimeout</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;	<span class="comment">// 第一层回调函数</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;1秒后输出&#x27;</span>)</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;	<span class="comment">// 第二层回调函数</span></span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;2秒后输出&#x27;</span>)</span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;	<span class="comment">// 第三层回调函数</span></span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;3秒后输出&#x27;</span>)</span><br><span class="line">        &#125;, <span class="number">3000</span>)</span><br><span class="line">    &#125;, <span class="number">2000</span>)</span><br><span class="line">&#125;, <span class="number">1000</span>)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>回调地狱的缺点：</p>
+</blockquote>
+<ul>
+<li>代码耦合性太强，牵一发而动全身，<strong>难以维护</strong></li>
+<li>大量的冗余代码相互嵌套，代码的<strong>可读性变差</strong></li>
+</ul>
+<h3 id="Promise-基本概念"><a href="#Promise-基本概念" class="headerlink" title="Promise 基本概念"></a>Promise 基本概念</h3><ul>
+<li>Promise 是一个构造函数<ul>
+<li>我们可以创建 Promise 的实例 <code>const p = new Promise()</code></li>
+<li>new 出来的 Promise 实例对象，代表一个<strong>异步操作</strong></li>
+</ul>
+</li>
+<li>Promise.prototype 上包含一个 .then 方法<ul>
+<li>每一次 new Promise() 构造函数得到的实例对象，都可以通过原型链的方式访问到 .then() 方法</li>
+<li>例如：<code>p.then()</code></li>
+</ul>
+</li>
+<li>.then() 方法用来预先指定成功和失败的回调函数<ul>
+<li><code>p.then(成功的回调函数, 失败的回调函数)</code></li>
+<li><code>p.then(result =&gt; &#123;&#125;, error =&gt; &#123;&#125;)</code></li>
+<li>调用 .then() 方法时，成功的回调函数是必选的，失败的回调函数是可选的</li>
+</ul>
+</li>
+<li>.then() 方法的特性<ul>
+<li>如果上一个 .then() 方法返回了一个新的 Promise，则可以通过下一个 .then() 继续进行处理</li>
+<li>通过 .then() 方法的链式调用，就可以解决回调地狱的问题</li>
+</ul>
+</li>
+<li>Promise.prototype 上包含一个 .catch 方法<ul>
+<li>在 Promise 的链式操作中，如果发生错误，可以使用 .catch() 方法进行捕获和处理</li>
+<li>只要发生了错误，下面的 .then() 方法将不再继续执行，就会直接进入 .catch() 方法</li>
+<li>如果不希望前面的错误导致后续的 .then 无法正常执行，可以将 .catch 的调用往前提</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> thenFs <span class="keyword">from</span> <span class="string">&#x27;then-fs&#x27;</span>  <span class="comment">// 导入 then-fs 第三方包，通过 npm i then-fs 下载</span></span><br><span class="line"></span><br><span class="line">thenFs.<span class="title function_">readFile</span>(<span class="string">&#x27;./files/1.txt&#x27;</span>, <span class="string">&#x27;utf8&#x27;</span>).<span class="title function_">then</span>(<span class="function"><span class="params">r1</span> =&gt;</span> &#123;</span><br><span class="line">  	<span class="variable language_">console</span>.<span class="title function_">log</span>(r1)</span><br><span class="line">  	<span class="keyword">return</span> thenFs.<span class="title function_">readFile</span>(<span class="string">&#x27;./files/2.txt&#x27;</span>, <span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">&#125;).<span class="title function_">then</span>(<span class="function"><span class="params">r2</span> =&gt;</span> &#123;</span><br><span class="line">  	<span class="variable language_">console</span>.<span class="title function_">log</span>(r2)</span><br><span class="line">  	<span class="keyword">return</span> thenFs.<span class="title function_">readFile</span>(<span class="string">&#x27;./files/3.txt&#x27;</span>, <span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">&#125;).<span class="title function_">then</span>(<span class="function"><span class="params">r3</span> =&gt;</span> &#123;</span><br><span class="line">  	<span class="variable language_">console</span>.<span class="title function_">log</span>(r3)</span><br><span class="line">&#125;).<span class="title function_">catch</span>(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(error)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Promise-all"><a href="#Promise-all" class="headerlink" title="Promise.all"></a>Promise.all</h3><blockquote>
+<p>Promise.all() 方法会发起并行的 Promise 异步操作，等<strong>所有的异步操作全部结束后</strong>才会执行 .then 操作（等待机制）</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> thenFs <span class="keyword">from</span> <span class="string">&#x27;then-fs&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 存放 promise 实例的数组</span></span><br><span class="line"><span class="keyword">const</span> promiseRows = [</span><br><span class="line">  thenFs.<span class="title function_">readFile</span>(<span class="string">&#x27;./files/1.txt&#x27;</span>, <span class="string">&#x27;utf8&#x27;</span>),</span><br><span class="line">  thenFs.<span class="title function_">readFile</span>(<span class="string">&#x27;./files/2.txt&#x27;</span>, <span class="string">&#x27;utf8&#x27;</span>),</span><br><span class="line">  thenFs.<span class="title function_">readFile</span>(<span class="string">&#x27;./files/3.txt&#x27;</span>, <span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment">// 等所有的异步操作全部结束后才执行 .then</span></span><br><span class="line"><span class="title class_">Promise</span>.<span class="title function_">all</span>(promiseRows).<span class="title function_">then</span>(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(result)	<span class="comment">// [&#x27;111&#x27;, &#x27;222&#x27;, &#x27;333&#x27;]</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Promise-race"><a href="#Promise-race" class="headerlink" title="Promise.race"></a>Promise.race</h3><blockquote>
+<p>Promise.race() 方法会发起并行的 Promise 异步操作，<strong>只要任何一个异步操作完成</strong>，就会立即执行 .then 操作（赛跑机制）</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> thenFs <span class="keyword">from</span> <span class="string">&#x27;then-fs&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> promiseRows = [</span><br><span class="line">  thenFs.<span class="title function_">readFile</span>(<span class="string">&#x27;./files/1.txt&#x27;</span>, <span class="string">&#x27;utf8&#x27;</span>),</span><br><span class="line">  thenFs.<span class="title function_">readFile</span>(<span class="string">&#x27;./files/2.txt&#x27;</span>, <span class="string">&#x27;utf8&#x27;</span>),</span><br><span class="line">  thenFs.<span class="title function_">readFile</span>(<span class="string">&#x27;./files/3.txt&#x27;</span>, <span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment">// 有一个异步操作最先完成，就执行 .then</span></span><br><span class="line"><span class="title class_">Promise</span>.<span class="title function_">race</span>(promiseRows).<span class="title function_">then</span>(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(result)	<span class="comment">// 谁最先完成，就输出谁</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="基于-Promise-的函数封装"><a href="#基于-Promise-的函数封装" class="headerlink" title="基于 Promise 的函数封装"></a>基于 Promise 的函数封装</h3><ul>
+<li>成功的结果可以放在 resolve 里面，这样可以被 .then 方法的成功的回调函数捕获</li>
+<li>失败的结果可以放在 reject 里面，这样可以被 .then 方法的失败的回调函数或者被 .catch 捕获</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> fs <span class="keyword">from</span> <span class="string">&#x27;fs&#x27;</span>	<span class="comment">// fs 是系统自带模块，无需下载</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getFile</span>(<span class="params">fpath, charset = <span class="string">&#x27;utf8&#x27;</span></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    fs.<span class="title function_">readFile</span>(fpath, charset, <span class="function">(<span class="params">err, res</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span>(err) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="title function_">reject</span>(err)</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="title function_">resolve</span>(res)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">getFile</span>(<span class="string">&#x27;./files/1.txt&#x27;</span>).<span class="title function_">then</span>(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(result)</span><br><span class="line">&#125;).<span class="title function_">catch</span>(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(error)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="async-x2F-await"><a href="#async-x2F-await" class="headerlink" title="async&#x2F;await"></a>async&#x2F;await</h3><blockquote>
+<p>async&#x2F;await 是 ES8 中引入的新语法，用来<strong>简化 Promise 异步操作</strong>。在 async&#x2F;await 出现之前，开发者只能通过链式 .then() 的方式处理 Promise 异步操作，如下代码：</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> thenFs <span class="keyword">from</span> <span class="string">&#x27;then-fs&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">readAllFile</span>(<span class="params"></span>) &#123;</span><br><span class="line">    thenFs.<span class="title function_">readFile</span>(<span class="string">&#x27;./files/1.txt&#x27;</span>, <span class="string">&#x27;utf8&#x27;</span>).<span class="title function_">then</span>(<span class="function"><span class="params">r1</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(r1)</span><br><span class="line">        <span class="keyword">return</span> thenFs.<span class="title function_">readFile</span>(<span class="string">&#x27;./files/2.txt&#x27;</span>, <span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">    &#125;).<span class="title function_">then</span>(<span class="function"><span class="params">r2</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(r2)</span><br><span class="line">        <span class="keyword">return</span> thenFs.<span class="title function_">readFile</span>(<span class="string">&#x27;./files/3.txt&#x27;</span>, <span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">    &#125;).<span class="title function_">then</span>(<span class="function"><span class="params">r3</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(r3)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>.then() 链式调用的优点：解决了回调地狱的问题</p>
+<p>.then() 链式调用的缺点：代码冗余、阅读性差、不易理解</p>
+</blockquote>
+<h3 id="async-x2F-await-的基本使用"><a href="#async-x2F-await-的基本使用" class="headerlink" title="async&#x2F;await 的基本使用"></a>async&#x2F;await 的基本使用</h3><ul>
+<li>如果某个方法的返回值是 Promise，那么这个方法就可以被 await 修饰</li>
+<li>async&#x2F;await 需要搭配使用，方法内部如果使用到了 await，那么这个方法就必须使用 async 进行修饰</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> thenFs <span class="keyword">from</span> <span class="string">&#x27;then-fs&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">readAllFile</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> r1 = <span class="keyword">await</span> thenFs.<span class="title function_">readFile</span>(<span class="string">&#x27;./files/1.txt&#x27;</span>, <span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(r1)</span><br><span class="line">    <span class="keyword">let</span> r2 = <span class="keyword">await</span> thenFs.<span class="title function_">readFile</span>(<span class="string">&#x27;./files/2.txt&#x27;</span>, <span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(r2)</span><br><span class="line">    <span class="keyword">let</span> r3 = <span class="keyword">await</span> thenFs.<span class="title function_">readFile</span>(<span class="string">&#x27;./files/3.txt&#x27;</span>, <span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(r3)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="async-x2F-await-的注意事项"><a href="#async-x2F-await-的注意事项" class="headerlink" title="async&#x2F;await 的注意事项"></a>async&#x2F;await 的注意事项</h3><blockquote>
+<p>在 async 方法中，第一个 await 之前的代码会同步执行，await 之后的代码会异步执行，如下代码解析：</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> thenFs <span class="keyword">from</span> <span class="string">&#x27;then-fs&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 1.代码从上往下执行，先输出 A</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;A&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">readAllFile</span>(<span class="params"></span>) &#123;	<span class="comment">// 遇到方法，不调用不执行</span></span><br><span class="line">    <span class="comment">// 3.方法被调用之后，进入方法内部，发现这是同步代码，于是输出 B</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;B&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 4.遇到被 await 修饰的代码之后，后面的代码会被主线程放到异步的任务队列，于是就会退出后面代码的执行</span></span><br><span class="line">    <span class="keyword">let</span> r1 = <span class="keyword">await</span> thenFs.<span class="title function_">readFile</span>(<span class="string">&#x27;./files/1.txt&#x27;</span>, <span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">    <span class="keyword">let</span> r2 = <span class="keyword">await</span> thenFs.<span class="title function_">readFile</span>(<span class="string">&#x27;./files/2.txt&#x27;</span>, <span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">    <span class="keyword">let</span> r3 = <span class="keyword">await</span> thenFs.<span class="title function_">readFile</span>(<span class="string">&#x27;./files/3.txt&#x27;</span>, <span class="string">&#x27;utf8&#x27;</span>)</span><br><span class="line">    <span class="comment">// 6.当这些异步操作结束后，就会输出 r1, r2, r3</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(r1, r2, r3)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 7.最后输出 D</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;D&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2.方法被调用</span></span><br><span class="line"><span class="title function_">readAllFile</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 5.主线程先输出 C</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;C&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 最终输出结果：A、B、C、(r1, r2, r3)、D</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="EventLoop（事件循环）"><a href="#EventLoop（事件循环）" class="headerlink" title="EventLoop（事件循环）"></a>EventLoop（事件循环）</h2><h3 id="单线程"><a href="#单线程" class="headerlink" title="单线程"></a>单线程</h3><ul>
+<li>JavaScript 是一门单线程执行的编程语言，简单来说就是，同一时间只能做一件事情</li>
+<li>JavaScript 执行线程 — 任务1(执行中) — 任务2(待执行) — 任务3(待执行) —  任务N(待执行)</li>
+<li>如果<strong>前一个任务非常耗时</strong>，后续的任务就不得不一直等待，从而导致程序<strong>假死</strong>的问题</li>
+</ul>
+<h3 id="同步任务和异步任务"><a href="#同步任务和异步任务" class="headerlink" title="同步任务和异步任务"></a>同步任务和异步任务</h3><blockquote>
+<p>为了防止某个<strong>耗时任务</strong>导致<strong>程序假死</strong>的问题，JavaScript 把待执行任务分为两类：</p>
+</blockquote>
+<ul>
+<li>同步任务<ul>
+<li>又叫<strong>非耗时任务</strong>，指的是在主线程上排队执行的那些任务</li>
+<li>只有前一个任务执行完毕，才能执行下一个任务</li>
+</ul>
+</li>
+<li>异步任务<ul>
+<li>又叫<strong>耗时任务</strong>，异步任务由 JavaScript 委托给<strong>宿主环境</strong>进行执行</li>
+<li>当异步任务执行完成后，会<strong>通知 JavaScript 主线程执行异步任务的回调函数</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="同步任务和异步任务的执行过程"><a href="#同步任务和异步任务的执行过程" class="headerlink" title="同步任务和异步任务的执行过程"></a>同步任务和异步任务的执行过程</h3><ol>
+<li>同步任务由 JavaScript 主线程次序执行</li>
+<li>异步任务委托给<strong>宿主环境（浏览器、Node）</strong>执行</li>
+<li>已完成的异步任务<strong>对应的回调函数</strong>，会被放到<strong>任务队列</strong>中<strong>等待执行</strong></li>
+<li>JavaScript 主线程的同步任务全部执行完后，会读取<strong>任务队列</strong>中的<strong>回调函数</strong>，次序执行</li>
+<li><strong>JavaScript 主线程不断重复上面的第4步</strong></li>
+</ol>
+<h3 id="宏任务与微任务"><a href="#宏任务与微任务" class="headerlink" title="宏任务与微任务"></a>宏任务与微任务</h3><blockquote>
+<p>JavaScript 把异步任务又做了进一步的划分，异步任务又分为两类，分别是：</p>
+</blockquote>
+<ul>
+<li>宏任务：<ul>
+<li>异步的 ajax 请求</li>
+<li>setTimeout、setInterval</li>
+<li>文件操作</li>
+<li>其它宏任务</li>
+</ul>
+</li>
+<li>微任务：<ul>
+<li>Promise 中的 .then、.catch、.finally</li>
+<li>process.nextTick</li>
+<li>Object.observe</li>
+<li>其它微任务</li>
+</ul>
+</li>
+</ul>
+<h3 id="宏任务与微任务的执行顺序"><a href="#宏任务与微任务的执行顺序" class="headerlink" title="宏任务与微任务的执行顺序"></a>宏任务与微任务的执行顺序</h3><blockquote>
+<p>假设先执行宏任务，当第一个宏任务执行结束后，<strong>会先判断是否有微任务</strong>，每一个宏任务执行完之后，都会检查<strong>是否存在待执行的微任务</strong></p>
+<blockquote>
+<p>如果有，就<strong>执行所有的微任务</strong>，当所有的微任务结束后，再执行下一个宏任务<br>如果没有，就直接执行下一个宏任务</p>
+</blockquote>
+</blockquote>
+<h3 id="去银行办业务的场景"><a href="#去银行办业务的场景" class="headerlink" title="去银行办业务的场景"></a>去银行办业务的场景</h3><ul>
+<li>张三和李四去银行办业务，首先，需要<strong>取号之后进行排队</strong><ul>
+<li>宏任务队列</li>
+</ul>
+</li>
+<li>假设当前银行网点只有<strong>一个柜员有空</strong>，张三在办理存款业务时，<strong>李四只能等待</strong><ul>
+<li><strong>单线程</strong>，宏任务<strong>按次序执行</strong></li>
+</ul>
+</li>
+<li>张三办完存款业务后，柜员询问他<strong>是否还想办理其它业务？</strong><ul>
+<li>当前宏任务执行完毕，<strong>检查是否有微任务</strong></li>
+</ul>
+</li>
+<li>张三告诉柜员：想要买理财产品、再办个信用卡、最后再兑换点纪念币<ul>
+<li>买理财产品 &#x3D;&gt; 第一个微任务</li>
+<li>办个信用卡 &#x3D;&gt; 第二个微任务</li>
+<li>兑换纪念币 &#x3D;&gt; 第三个微任务</li>
+<li>执行微任务，后续<strong>宏任务被推迟</strong></li>
+</ul>
+</li>
+<li>张三离开柜台后，柜员开始为李四办理业务<ul>
+<li><strong>所有微任务执行完毕</strong>，开始<strong>执行下一个宏任务</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="经典面试题"><a href="#经典面试题" class="headerlink" title="经典面试题"></a>经典面试题</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">setTimeout</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">1</span>)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="keyword">function</span>(<span class="params">resolve</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">2</span>)</span><br><span class="line">    <span class="title function_">resolve</span>()</span><br><span class="line">&#125;).<span class="title function_">then</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">3</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 正确的输出顺序是：2、4、3、1</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>为什么正确的输出顺序是：2、4、3、1 呢？这里我们来做一下解析：</p>
+</blockquote>
+<ul>
+<li>new Promise() 和 console.log(4) 都属于同步任务，所以会先输出 2、4</li>
+<li>检查是否有微任务，.then() 属于微任务，所以输出 3</li>
+<li>再执行下一个宏任务，setTimeout() 属于宏任务，最后输出 1</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">2</span>)</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="keyword">function</span>(<span class="params">resolve</span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">3</span>)</span><br><span class="line">        <span class="title function_">resolve</span>()</span><br><span class="line">    &#125;).<span class="title function_">then</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">4</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="keyword">function</span>(<span class="params">resolve</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">5</span>)</span><br><span class="line">    <span class="title function_">resolve</span>()</span><br><span class="line">&#125;).<span class="title function_">then</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">6</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">7</span>)</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="keyword">function</span>(<span class="params">resolve</span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">8</span>)</span><br><span class="line">        <span class="title function_">resolve</span>()</span><br><span class="line">    &#125;).<span class="title function_">then</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">9</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 正确的输出顺序是：1、5、6、2、3、4、7、8、9</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://andy.yang.github.io/2023/05/27/Promise/" data-id="cli5ry3cc0002ycqdcg7b4qvb" data-title="" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2023/05/27/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/05/27/Promise/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/27/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 Andy.yang<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
