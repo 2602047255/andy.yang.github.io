@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#3367D6"/>
+  <link rel="apple-touch-icon" href="/icons-192.png">
+  <link rel="manifest" href="/manifest.json">
+  
+
+
+  <meta name="generator" content="Hexo 6.3.0">
+
+  
+    <meta name="description" content="天地生人，有一人当有一人之业。人生在世，有一日当尽一日之勤">
+  
+
+  
+
+  
+    <meta name="author" content="Andy.yang">
+  
+
+  
+
+  
+
+  <title>Webpack | Yangke-blog</title>
+
+  
+
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@1.1.3/index.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlightjs@9.16.2/styles/monokai.css">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body>
+  <div class="root-container">
+    
+<!-- header container -->
+<header class="header-container post">
+  
+    <div class="post-image" style="background-image: url(https://qiniu.sukoshi.xyz/src/images/68686407_p0.jpg)"></div>
+  
+
+  <!-- navbar -->
+<nav class="navbar">
+  <div class="navbar-content">
+    <!-- logo -->
+    <div class="navbar-logo">
+      <a href="/">
+        
+          Yangke-blog
+        
+      </a>
+    </div>
+    <!-- link -->
+    <div class="navbar-link">
+      <div class="navbar-btn">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <ul class="navbar-list">
+        
+          <li class="navbar-list-item"><a href="/">首页</a></li>
+        
+          <li class="navbar-list-item"><a href="/">类别</a></li>
+        
+          <li class="navbar-list-item"><a href="/">关于</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+    <div class="header-content">
+      <div class="post-text layout-block">
+        <div class="layout-margin">
+          <h1 class="title-wrap">Webpack</h1>
+          <h2 class="title-sub-wrap">
+            <strong>Andy.yang</strong>
+            <span>发布于</span>
+            <time  class="article-date" datetime="2023-05-27T10:33:48.711Z" itemprop="datePublished">2023-05-27</time>
+          </h2>
+          
+          
+            <h6 id="/2023/05/27/Webpack/" class="title-sub-wrap leancloud_visitors" data-flag-title="Webpack" style="font-size: 14px;color: #ddd;">
+              <em>文章访问量</em>
+              <i class="leancloud-visitors-count"></i>
+            </h6>
+          
+          <ul class="wrap-list dark">
+  
+</ul>
+          <ul class="wrap-list dark">
+  
+</ul>
+        </div>
+      </div>
+    </div>
+  
+
+  
+  
+  
+</header>
+
+    <!-- 文章 -->
+
+<!-- 文章内容 -->
+<div class="body-container">
+  <article class="content-container layout-block post-container">
+    <div class="article-info">
+      
+      
+      
+      
+      <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
+        <h3 id="webpack-基本概述"><a href="#webpack-基本概述" class="headerlink" title="webpack 基本概述"></a>webpack 基本概述</h3><blockquote>
+<p>webpack 本质是一个第三方模块包，用于分析并打包代码</p>
+</blockquote>
+<ul>
+<li>支持所有类型文件的打包</li>
+<li>支持 less&#x2F;sass 转换为 css</li>
+<li>支持 ES6&#x2F;7&#x2F;8 转换为 ES5</li>
+<li>压缩代码，提高加载速度</li>
+</ul>
+<h3 id="webpack-使用步骤"><a href="#webpack-使用步骤" class="headerlink" title="webpack 使用步骤"></a>webpack 使用步骤</h3><ul>
+<li>初始化包环境：<code>yarn init</code></li>
+<li>安装依赖包：<code>yarn add webpack webpack-cli -D</code></li>
+<li>配置 package.json 的 scripts(自定义命令) 节点 ：<code>&quot;scripts&quot;: &#123; &quot;build&quot;: &quot;webpack&quot; &#125;</code></li>
+</ul>
+<h3 id="webpack-基础使用"><a href="#webpack-基础使用" class="headerlink" title="webpack 基础使用"></a>webpack 基础使用</h3><blockquote>
+<p>目录结构（以下文件由自己手动创建）：</p>
+<p>project</p>
+<p>| — src</p>
+<p>| —— add</p>
+<p>| ———— add.js</p>
+<p>| —— css</p>
+<p>| ———— index.css</p>
+<p>| —— assets</p>
+<p>| —— index.html</p>
+<p>| —— index.js (<strong>webpack 打包的入口</strong>)</p>
+</blockquote>
+<ul>
+<li>add.js - 定义求和函数并导出</li>
+<li>index.js - 导入 add 模块并使用求和函数输出结果</li>
+<li>项目根目录执行 <code>yarn build</code> 自定义命令，进行打包</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// add.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">addFn</span> = (<span class="params">a, b</span>) =&gt; a + b</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; addFn &#125; <span class="keyword">from</span> <span class="string">&#x27;./add/add.js&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">addFn</span>(<span class="number">5</span>, <span class="number">10</span>));</span><br></pre></td></tr></table></figure>
+
+<h3 id="入口和出口"><a href="#入口和出口" class="headerlink" title="入口和出口"></a>入口和出口</h3><blockquote>
+<p>webpack 默认的入口是 <strong>src&#x2F;index.js</strong>，默认的出口是 <strong>dist&#x2F;main.js</strong>，这些配置信息都可以通过 <strong>webpack.config.js</strong> 来进行修改，<strong>webpack.config.js</strong> 需要新建在<strong>项目的根目录</strong></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack 是遵循 CommonJS 规范的，所以不能使用 ES6 的导入和导出</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">    <span class="comment">// 入口</span></span><br><span class="line">    <span class="attr">entry</span>: <span class="string">&#x27;./src/main.js&#x27;</span>,</span><br><span class="line">    <span class="comment">// 出口</span></span><br><span class="line">    <span class="attr">output</span>: &#123;</span><br><span class="line">        <span class="comment">// 出口的文件夹名字</span></span><br><span class="line">        <span class="attr">path</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&#x27;build&#x27;</span>),</span><br><span class="line">        <span class="comment">// 出口的文件名</span></span><br><span class="line">        <span class="attr">filename</span>: <span class="string">&#x27;bundle.js&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：修改了入口的路径之后，目录需要与入口路径一 一对应</p>
+</blockquote>
+<h3 id="隔行变色案例"><a href="#隔行变色案例" class="headerlink" title="隔行变色案例"></a>隔行变色案例</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;!- src/index.html -&gt;</span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>4<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>5<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>6<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>7<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>8<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>9<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>10<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/main.js</span></span><br><span class="line"><span class="keyword">import</span> $ <span class="keyword">from</span> <span class="string">&#x27;jquery&#x27;</span>	<span class="comment">// 需要通过 yarn add jquery 下载</span></span><br><span class="line"></span><br><span class="line">$(<span class="string">&#x27;ul li:odd&#x27;</span>).<span class="title function_">css</span>(<span class="string">&#x27;background&#x27;</span>, <span class="string">&#x27;red&#x27;</span>)</span><br><span class="line">$(<span class="string">&#x27;ul li:even&#x27;</span>).<span class="title function_">css</span>(<span class="string">&#x27;background&#x27;</span>, <span class="string">&#x27;green&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;!- build/index.html，直接将 src/index.html 文件复制过来即可 -&gt;</span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>4<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>5<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>6<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>7<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>8<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>9<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>10<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;./bundle.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>当 main.js 的代码写完后执行 <code>yarn build</code> 进行打包，然后将 src&#x2F;index.html 复制到 build&#x2F;index.html，然后在 build&#x2F;index.html 引入 bundle.js，最后在浏览器上打开 build&#x2F;index.html</p>
+</blockquote>
+<h3 id="生成-HTML-文件"><a href="#生成-HTML-文件" class="headerlink" title="生成 HTML 文件"></a>生成 HTML 文件</h3><blockquote>
+<p><strong>HTMLWebpackPlugin</strong> 可以简化 HTM 文件的创建，以便为 webpack 包提供服务，该插件会自动生成一个 HTML 文件，当然，你需要通过 <code>yarn add html-webpack-plugin -D</code> 命令进行安装</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">HTMLWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;html-webpack-plugin&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// HTMLWebpackPlugin 配置项</span></span><br><span class="line"><span class="keyword">const</span> htmlWebpackPlugin = <span class="keyword">new</span> <span class="title class_">HTMLWebpackPlugin</span> (&#123;</span><br><span class="line">    <span class="comment">// 以指定路径的模板去生成 build 下面 html 文件</span></span><br><span class="line">    <span class="attr">template</span>: <span class="string">&#x27;./src/index.html&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">	<span class="attr">entry</span>: <span class="string">&#x27;./src/main.js&#x27;</span>,</span><br><span class="line">	<span class="attr">output</span>: &#123;</span><br><span class="line">		<span class="attr">path</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&#x27;build&#x27;</span>),</span><br><span class="line">    	<span class="attr">filename</span>: <span class="string">&#x27;bundle.js&#x27;</span></span><br><span class="line">  	&#125;,</span><br><span class="line">    <span class="comment">// 插件配置，可以配置一些第三方插件</span></span><br><span class="line">  	<span class="attr">plugins</span>: [htmlWebpackPlugin]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="打包-CSS-文件"><a href="#打包-CSS-文件" class="headerlink" title="打包 CSS 文件"></a>打包 CSS 文件</h3><blockquote>
+<p>打包 CSS 文件时，需要用到 <strong>css-loader</strong> 和 <strong>style-loader</strong>，这两个模块，其中 <strong>css-loader</strong> 是为了<strong>让 webpack 能处理 css 类型文件</strong>，<strong>style-loader</strong> 用于<strong>把 css 插入到 DOM 中</strong>，你可以通过 <code>yarn add css-loader style-loader -D</code> 进行安装</p>
+</blockquote>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// <span class="attribute">src</span>/css/index<span class="selector-class">.css</span></span><br><span class="line"><span class="selector-tag">ul</span> &#123;</span><br><span class="line">	<span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">	<span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">li</span> &#123;</span><br><span class="line">	<span class="attribute">list-style</span>: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/main.js</span></span><br><span class="line">...</span><br><span class="line"><span class="comment">// 将 css 引入到 main.js 里面</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;./css/index.css&#x27;</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">HTMLWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;html-webpack-plugin&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> htmlWebpackPlugin = <span class="keyword">new</span> <span class="title class_">HTMLWebpackPlugin</span> (&#123;</span><br><span class="line">    <span class="attr">template</span>: <span class="string">&#x27;./src/index.html&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">	<span class="attr">entry</span>: <span class="string">&#x27;./src/main.js&#x27;</span>,</span><br><span class="line">	<span class="attr">output</span>: &#123;</span><br><span class="line">		<span class="attr">path</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&#x27;build&#x27;</span>),</span><br><span class="line">    	<span class="attr">filename</span>: <span class="string">&#x27;bundle.js&#x27;</span></span><br><span class="line">  	&#125;,</span><br><span class="line">  	<span class="attr">plugins</span>: [htmlWebpackPlugin],</span><br><span class="line">    <span class="comment">// 加载器配置</span></span><br><span class="line">    <span class="attr">module</span>: &#123;</span><br><span class="line">        <span class="comment">// 加载器的一些规则</span></span><br><span class="line">        <span class="attr">rules</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// test 用于匹配文件，这里匹配的是以 .css 结尾的文件</span></span><br><span class="line">                <span class="attr">test</span>: <span class="regexp">/\.css$/i</span>,</span><br><span class="line">                <span class="comment">// use 用于配置 loader(加载器)，这里用于让下面的两个 loader 处理 css 文件</span></span><br><span class="line">                <span class="comment">// loader 的执行顺序是从右到左的，所以不能颠倒顺序</span></span><br><span class="line">                <span class="comment">// css-loader：webpack 解析 css 文件，把 css 代码一起打包进 js 中</span></span><br><span class="line">                <span class="comment">// style-loader：css 代码插入到 DOM 中 (style 标签)</span></span><br><span class="line">                <span class="attr">use</span>: [<span class="string">&#x27;style-loader&#x27;</span>, <span class="string">&#x27;css-loader&#x27;</span>]</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>打包完之后，在浏览器的控制台中，会发现多了一个 style 标签，里面就有你所写的 css 代码</p>
+</blockquote>
+<h3 id="打包-Less-文件"><a href="#打包-Less-文件" class="headerlink" title="打包 Less 文件"></a>打包 Less 文件</h3><blockquote>
+<p>打包 Less 文件时，需要用到 <strong>less</strong> 和 <strong>less-loader</strong>，这两个模块，其中 <strong>less-loader</strong> 是为了<strong>让 webpack 能处理 less 类型文件</strong>，<strong>less</strong> 用于<strong>把 less 编译为 css</strong>，你可以通过 <code>yarn add less less-loader -D</code> 进行安装</p>
+</blockquote>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/css/index.less</span></span><br><span class="line"><span class="variable">@height:</span> <span class="number">40px</span>;</span><br><span class="line"><span class="variable">@fontColor:</span> white;</span><br><span class="line"><span class="variable">@fontSize:</span> <span class="number">18px</span>;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">li</span> &#123;</span><br><span class="line">	<span class="attribute">color</span>: <span class="variable">@fontColor</span>;</span><br><span class="line">	<span class="attribute">line-height</span>: <span class="variable">@height</span>;</span><br><span class="line">	<span class="attribute">font-size</span>: <span class="variable">@fontSize</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/main.js</span></span><br><span class="line">...</span><br><span class="line"><span class="comment">// 将 css 引入到 main.js 里面</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;./css/index.less&#x27;</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">HTMLWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;html-webpack-plugin&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> htmlWebpackPlugin = <span class="keyword">new</span> <span class="title class_">HTMLWebpackPlugin</span> (&#123;</span><br><span class="line">    <span class="attr">template</span>: <span class="string">&#x27;./src/index.html&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">	<span class="attr">entry</span>: <span class="string">&#x27;./src/main.js&#x27;</span>,</span><br><span class="line">	<span class="attr">output</span>: &#123;</span><br><span class="line">		<span class="attr">path</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&#x27;build&#x27;</span>),</span><br><span class="line">    	<span class="attr">filename</span>: <span class="string">&#x27;bundle.js&#x27;</span></span><br><span class="line">  	&#125;,</span><br><span class="line">  	<span class="attr">plugins</span>: [htmlWebpackPlugin],</span><br><span class="line">    <span class="attr">module</span>: &#123;</span><br><span class="line">        <span class="attr">rules</span>: [</span><br><span class="line">            &#123; <span class="attr">test</span>: <span class="regexp">/\.css$/i</span>, <span class="attr">use</span>: [<span class="string">&#x27;style-loader&#x27;</span>, <span class="string">&#x27;css-loader&#x27;</span>] &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">test</span>: <span class="regexp">/\.less$/i</span>,</span><br><span class="line">                <span class="attr">use</span>: [<span class="string">&#x27;style-loader&#x27;</span>, <span class="string">&#x27;css-loader&#x27;</span>, <span class="string">&#x27;less-loader&#x27;</span>]</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="处理图片文件"><a href="#处理图片文件" class="headerlink" title="处理图片文件"></a>处理图片文件</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// <span class="attribute">src</span>/css/index<span class="selector-class">.less</span></span><br><span class="line">...</span><br><span class="line"><span class="keyword">@baseImage</span>: <span class="string">&#x27;../assets/1.jpg&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">	<span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">@baseImage</span>) no-repeat center;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/main.js</span></span><br><span class="line">...</span><br><span class="line"><span class="comment">// 在 webpack 眼里，万物皆模块，即使是一张图片，它也是一个模块</span></span><br><span class="line"><span class="keyword">import</span> image <span class="keyword">from</span> <span class="string">&#x27;./assets/2.jpg&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> img = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;img&#x27;</span>)</span><br><span class="line">img.<span class="property">src</span> = image</span><br><span class="line"><span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(img)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">HTMLWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;html-webpack-plugin&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> htmlWebpackPlugin = <span class="keyword">new</span> <span class="title class_">HTMLWebpackPlugin</span> (&#123;</span><br><span class="line">    <span class="attr">template</span>: <span class="string">&#x27;./src/index.html&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">	<span class="attr">entry</span>: <span class="string">&#x27;./src/main.js&#x27;</span>,</span><br><span class="line">	<span class="attr">output</span>: &#123;</span><br><span class="line">		<span class="attr">path</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&#x27;build&#x27;</span>),</span><br><span class="line">    	<span class="attr">filename</span>: <span class="string">&#x27;bundle.js&#x27;</span></span><br><span class="line">  	&#125;,</span><br><span class="line">  	<span class="attr">plugins</span>: [htmlWebpackPlugin],</span><br><span class="line">    <span class="attr">module</span>: &#123;</span><br><span class="line">        <span class="attr">rules</span>: [</span><br><span class="line">            &#123; <span class="attr">test</span>: <span class="regexp">/\.css$/i</span>, <span class="attr">use</span>: [<span class="string">&#x27;style-loader&#x27;</span>, <span class="string">&#x27;css-loader&#x27;</span>] &#125;,</span><br><span class="line">            &#123; <span class="attr">test</span>: <span class="regexp">/\.less$/i</span>, <span class="attr">use</span>: [<span class="string">&#x27;style-loader&#x27;</span>, <span class="string">&#x27;css-loader&#x27;</span>, <span class="string">&#x27;less-loader&#x27;</span>] &#125;,</span><br><span class="line">            <span class="comment">// 配置图片文件（仅适用于 webpack5 以上的版本）</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">test</span>: <span class="regexp">/\.(jpg|png|gif|jpeg)$/i</span>,</span><br><span class="line">                <span class="comment">// 匹配上面的文件后，webpack 会把它们当作静态资源处理并打包</span></span><br><span class="line">                <span class="comment">// asset 模式，如果图片小于 8KB，会把图片转为 base64</span></span><br><span class="line">                <span class="comment">// asset 模式，如果图片大于 8KB，会被打包到 build 文件夹里面</span></span><br><span class="line">                <span class="attr">type</span>: <span class="string">&#x27;asset&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>小于 8KB 转为 base64 的好处就是浏览器不用发请求，可以直接读取，速度快。相反，如果大于 8KB 的图片转为 base64 就会让项目体积增大 30% 左右</p>
+</blockquote>
+<h3 id="处理字体图标文件"><a href="#处理字体图标文件" class="headerlink" title="处理字体图标文件"></a>处理字体图标文件</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/main.js</span></span><br><span class="line">...</span><br><span class="line"><span class="comment">// 自行到阿里巴巴矢量图标库下载一套图标</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;./assets/iconfont/iconfont.css&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> i = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;i&#x27;</span>)</span><br><span class="line">i.<span class="property">className</span> = <span class="string">&#x27;iconfont icon-wode&#x27;</span></span><br><span class="line"><span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(i)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">HTMLWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;html-webpack-plugin&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> htmlWebpackPlugin = <span class="keyword">new</span> <span class="title class_">HTMLWebpackPlugin</span> (&#123;</span><br><span class="line">    <span class="attr">template</span>: <span class="string">&#x27;./src/index.html&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">	<span class="attr">entry</span>: <span class="string">&#x27;./src/main.js&#x27;</span>,</span><br><span class="line">	<span class="attr">output</span>: &#123;</span><br><span class="line">		<span class="attr">path</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&#x27;build&#x27;</span>),</span><br><span class="line">    	<span class="attr">filename</span>: <span class="string">&#x27;bundle.js&#x27;</span></span><br><span class="line">  	&#125;,</span><br><span class="line">  	<span class="attr">plugins</span>: [htmlWebpackPlugin],</span><br><span class="line">    <span class="attr">module</span>: &#123;</span><br><span class="line">        <span class="attr">rules</span>: [</span><br><span class="line">            &#123; <span class="attr">test</span>: <span class="regexp">/\.css$/i</span>, <span class="attr">use</span>: [<span class="string">&#x27;style-loader&#x27;</span>, <span class="string">&#x27;css-loader&#x27;</span>] &#125;,</span><br><span class="line">            &#123; <span class="attr">test</span>: <span class="regexp">/\.less$/i</span>, <span class="attr">use</span>: [<span class="string">&#x27;style-loader&#x27;</span>, <span class="string">&#x27;css-loader&#x27;</span>, <span class="string">&#x27;less-loader&#x27;</span>] &#125;,</span><br><span class="line">            &#123; <span class="attr">test</span>: <span class="regexp">/\.(jpg|png|gif|jpeg)$/i</span>, <span class="attr">type</span>: <span class="string">&#x27;asset&#x27;</span> &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">test</span>: <span class="regexp">/\.(eot|svg|ttf|woff|woff2)$/i</span>,</span><br><span class="line">                <span class="comment">// asset/resource 模式，会将这些资源全部输出到 build 文件夹里面</span></span><br><span class="line">                <span class="attr">type</span>: <span class="string">&#x27;asset/resource&#x27;</span>,</span><br><span class="line">                <span class="comment">// 生成文件名字 - 自定义规则</span></span><br><span class="line">                <span class="comment">// 打包之后，可以在 build 里面查看这些字体图标资源</span></span><br><span class="line">                <span class="attr">generator</span>: &#123;</span><br><span class="line">                    <span class="comment">// name 原来的文件名</span></span><br><span class="line">                    <span class="comment">// hash:6 随机产生的6位哈希值</span></span><br><span class="line">                    <span class="comment">// ext 扩展名</span></span><br><span class="line">                    <span class="attr">filename</span>: <span class="string">&#x27;iconfont/[name].[hash:6][ext]&#x27;</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="处理浏览器兼容问题"><a href="#处理浏览器兼容问题" class="headerlink" title="处理浏览器兼容问题"></a>处理浏览器兼容问题</h3><blockquote>
+<p>当一些高级的 JavaScript 语法对低版本的浏览器不兼容时，babel 这个模块就可以进行兼容的处理，可以通过 <code>yarn add babel-loader @babel/core @babel/preset-env -D</code> 进行安装</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/main.js</span></span><br><span class="line">...</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">fn</span> = (<span class="params"></span>) =&gt; &#123; <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;我是一个箭头函数&#x27;</span>); &#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(fn);</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">HTMLWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;html-webpack-plugin&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> htmlWebpackPlugin = <span class="keyword">new</span> <span class="title class_">HTMLWebpackPlugin</span> (&#123;</span><br><span class="line">    <span class="attr">template</span>: <span class="string">&#x27;./src/index.html&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">	<span class="attr">entry</span>: <span class="string">&#x27;./src/main.js&#x27;</span>,</span><br><span class="line">	<span class="attr">output</span>: &#123;</span><br><span class="line">		<span class="attr">path</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&#x27;build&#x27;</span>),</span><br><span class="line">    	<span class="attr">filename</span>: <span class="string">&#x27;bundle.js&#x27;</span></span><br><span class="line">  	&#125;,</span><br><span class="line">  	<span class="attr">plugins</span>: [htmlWebpackPlugin],</span><br><span class="line">    <span class="attr">module</span>: &#123;</span><br><span class="line">        <span class="attr">rules</span>: [</span><br><span class="line">            &#123; <span class="attr">test</span>: <span class="regexp">/\.css$/i</span>, <span class="attr">use</span>: [<span class="string">&#x27;style-loader&#x27;</span>, <span class="string">&#x27;css-loader&#x27;</span>] &#125;,</span><br><span class="line">            &#123; <span class="attr">test</span>: <span class="regexp">/\.less$/i</span>, <span class="attr">use</span>: [<span class="string">&#x27;style-loader&#x27;</span>, <span class="string">&#x27;css-loader&#x27;</span>, <span class="string">&#x27;less-loader&#x27;</span>] &#125;,</span><br><span class="line">            &#123; <span class="attr">test</span>: <span class="regexp">/\.(jpg|png|gif|jpeg)$/i</span>, <span class="attr">type</span>: <span class="string">&#x27;asset&#x27;</span> &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">test</span>: <span class="regexp">/\.(eot|svg|ttf|woff|woff2)$/i</span>,</span><br><span class="line">                <span class="attr">type</span>: <span class="string">&#x27;asset/resource&#x27;</span>,</span><br><span class="line">                <span class="attr">generator</span>: &#123;</span><br><span class="line">                    <span class="attr">filename</span>: <span class="string">&#x27;iconfont/[name].[hash:6][ext]&#x27;</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">test</span>: <span class="regexp">/\.m?js$/</span>,</span><br><span class="line">                <span class="comment">// 不匹配以下文件夹下面的文件</span></span><br><span class="line">                <span class="attr">exclude</span>: <span class="regexp">/(node_modules|bower_components)/</span>,</span><br><span class="line">                <span class="attr">use</span>: &#123;</span><br><span class="line">                    <span class="comment">// 使用 babel-loader</span></span><br><span class="line">                    <span class="attr">loader</span>: <span class="string">&#x27;babel-loader&#x27;</span>,</span><br><span class="line">                    <span class="comment">// loader(加载器) 选项</span></span><br><span class="line">                    <span class="attr">options</span>: &#123;</span><br><span class="line">                        <span class="comment">// presets 预设，这里使用了 @babel/preset-env 的降级规则</span></span><br><span class="line">                        <span class="attr">presets</span>: [<span class="string">&#x27;@babel/preset-env&#x27;</span>]</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="自动打包工具"><a href="#自动打包工具" class="headerlink" title="自动打包工具"></a>自动打包工具</h3><blockquote>
+<p>问题：每次修改代码之后，都要重新 <code>yarn build</code> 打包，才能看到最新的效果，实际工作中，打包 <code>yarn build</code> 是<strong>非常费时</strong>的，大约 30s~60s</p>
+</blockquote>
+<ul>
+<li>原因：<ul>
+<li>从 0 开始构建依赖</li>
+<li>磁盘读取对应的文件到内存，webpack 开始加载</li>
+<li>再用对应的 loader 进行处理</li>
+<li>将处理完的内容，输出到磁盘指定的目录</li>
+</ul>
+</li>
+<li>解决：<ul>
+<li>启动一个开发服务器</li>
+<li>缓存一些已经打包过的内容，只重新打包修改过的文件</li>
+<li>最终运行在内存中给浏览器使用</li>
+</ul>
+</li>
+<li>总结：<ul>
+<li>把代码运行在<strong>内存</strong>中，<strong>自动更新</strong>，<strong>实时返回</strong>给浏览器显示</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>webpack 的自动打包是需要下载第三方模块的，操作步骤如下：</p>
+</blockquote>
+<ul>
+<li>下载模块包<ul>
+<li><code>yarn add webpack-dev-server -D</code></li>
+</ul>
+</li>
+<li>在 package.json 里面配置自定义服务器启动命令<ul>
+<li><code>&quot;scripts&quot;: &#123; &quot;serve&quot;: &quot;webpack serve&quot; &#125;</code></li>
+</ul>
+</li>
+<li>启动服务器<ul>
+<li><code>yarn serve</code></li>
+<li>浏览器上访问 localhost:8080</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>自动打包的配置可以通过 <strong>wepback.config.js</strong> 进行自定义的配置，比如：修改端口、自动打开浏览器等</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">    <span class="comment">// ...省略代码</span></span><br><span class="line">    <span class="attr">devServer</span>: &#123;	<span class="comment">// 修改之后需要重启服务器</span></span><br><span class="line">        <span class="comment">// 端口号</span></span><br><span class="line">        <span class="attr">port</span>: <span class="number">8888</span>,</span><br><span class="line">        <span class="comment">// 打包完成之后，是否自动打开浏览器</span></span><br><span class="line">        <span class="attr">open</span>: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>更多配置可以在官方文档上查阅：<a target="_blank" rel="noopener" href="https://webpack.docschina.org/concepts/">https://webpack.docschina.org/concepts/</a></p>
+</blockquote>
+<h3 id="练习题"><a href="#练习题" class="headerlink" title="练习题"></a>练习题</h3><blockquote>
+<p>题一：如何将 css 文件打包到 dist 目录下？</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">HTMLWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;html-webpack-plugin&#x27;</span>)</span><br><span class="line"><span class="comment">// 通过 yarn add mini-css-extract-plugin -D 安装</span></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">MiniCssExtractPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;mini-css-extract-plugin&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> htmlWebpackPlugin = <span class="keyword">new</span> <span class="title class_">HTMLWebpackPlugin</span>(&#123;</span><br><span class="line">  <span class="attr">template</span>: <span class="string">&#x27;./src/index.html&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 配置项</span></span><br><span class="line"><span class="keyword">const</span> miniCssExtractPlugin = <span class="keyword">new</span> <span class="title class_">MiniCssExtractPlugin</span>(&#123;</span><br><span class="line">  <span class="attr">filename</span>: <span class="string">&#x27;css/[name][hash:6].css&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">    <span class="comment">// ...省略代码</span></span><br><span class="line">    <span class="attr">plugins</span>: [htmlWebpackPlugin, miniCssExtractPlugin],</span><br><span class="line">    <span class="attr">module</span>: &#123;</span><br><span class="line">        <span class="attr">rules</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">test</span>: <span class="regexp">/\.css$/i</span>,</span><br><span class="line">                <span class="attr">use</span>: [<span class="title class_">MiniCssExtractPlugin</span>.<span class="property">loader</span>, <span class="string">&#x27;css-loader&#x27;</span>]</span><br><span class="line">			&#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      </section>
+
+      
+      
+        <nav class="article-nav">
+          
+            <div class="article-nav-item layout-padding">
+  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
+    
+    <div class="card-text">
+      
+        <a href="/2023/05/27/Http%E5%92%8CTCP/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">HTTP 和 TCP</h2>
+        </a>
+      
+      <div class="card-text--row">Newer</div>
+    </div>
+  </article>
+</div>
+          
+          
+            <div class="article-nav-item layout-padding">
+  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
+    
+    <div class="card-text">
+      
+        <a href="/2023/05/27/Promise/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">Promise</h2>
+        </a>
+      
+      <div class="card-text--row">Older</div>
+    </div>
+  </article>
+</div>
+          
+        </nav>
+      
+
+      <section class="page-message-container layout-padding">
+        
+
+
+  
+  
+    <div class="valine-container comments-container content-padding--primary soft-size--large soft-style--box">
+      <div id="valine_thread" class="valine-thread"></div>
+    </div>
+    <script type="text/javascript" src="//unpkg.com/leancloud-storage@3.15.0/dist/av-min.js"></script>
+    <script type="text/javascript" src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <script type="text/javascript">
+      new Valine({
+        el: "#valine_thread",
+        appId: "1N9NuE5LfF5UuyzqwbC32XUZ-gzGzoHsz",
+        appKey: "chke8zcwFfjsKPnmvShEDeFp",
+        placeholder: "随便说点什么叭～",
+        avatar: "mp",
+        pageSize: 10,
+        lang: "zh-cn",
+        visitor: true,
+        recordIP: true,
+        enableQQ: false,
+        meta: ['nick', 'mail', 'link'],
+        requiredFields: ['nick'],
+        
+        // Bilibili 表情包插件
+        // 设置 Bilibili 表情包地址
+        emojiCDN: '//i0.hdslb.com/bfs/emote/', 
+        // 表情 title 和图片映射
+        emojiMaps: {
+            // 小黄脸
+            "2023": "fa6dda8b876ed38609de38aa604be5ad109b8591.png",
+            "足球": "f9157d9fa5ac3b8339cb8a8b7ad70eb40d4113c9.png",
+            "脱单doge": "bf7e00ecab02171f8461ee8cf439c73db9797748.png",
+            "微笑": "685612eadc33f6bc233776c6241813385844f182.png",
+            "口罩": "3ad2f66b151496d2a5fb0a8ea75f32265d778dd3.png",
+            "doge": "3087d273a78ccaff4bb1e9972e2ba2a7583c9f11.png",
+            "妙啊": "b4cb77159d58614a9b787b91b1cd22a81f383535.png",
+            "OK": "4683fd9ffc925fa6423110979d7dcac5eda297f4.png",
+            "星星眼": "63c9d1a31c0da745b61cdb35e0ecb28635675db2.png",
+            "辣眼睛": "35d62c496d1e4ea9e091243fa812866f5fecc101.png",
+            "吃瓜": "4191ce3c44c2b3df8fd97c33f85d3ab15f4f3c84.png",
+            "滑稽": "d15121545a99ac46774f1f4465b895fe2d1411c3.png",
+            "呲牙": "b5a5898491944a4268360f2e7a84623149672eb6.png",
+            "打call": "431432c43da3ee5aab5b0e4f8931953e649e9975.png",
+            "歪嘴": "4384050fbab0586259acdd170b510fe262f08a17.png",
+            "调皮": "8290b7308325e3179d2154327c85640af1528617.png",
+            "2022": "a783df2ce72952c44004007462324bde4b092a0c.png",
+            "虎年": "a062f5fa2bafe677e49b6963a2bbb11dd4fe1e11.png",
+            "豹富": "3d1dbe52ea16e12ff7b1c371196f728a4097fb33.png",
+            "嗑瓜子": "28a91da1685d90124cfeead74622e1ebb417c0eb.png",
+            "笑哭": "c3043ba94babf824dea03ce500d0e73763bf4f40.png",
+            "藏狐": "ba0937ef6f3ccca85e2e0047e6263f3b4da37201.png",
+            "脸红": "0922c375da40e6b69002bd89b858572f424dcfca.png",
+            "给心心": "1597302b98827463f5b75c7cac1f29ea6ce572c4.png",
+            "嘟嘟": "abd7404537d8162720ccbba9e0a8cdf75547e07a.png",
+            "哦呼": "362bded07ea5434886271d23fa25f5d85d8af06c.png",
+            "喜欢": "8a10a4d73a89f665feff3d46ca56e83dc68f9eb8.png",
+            "酸了": "92b1c8cbceea3ae0e8e32253ea414783e8ba7806.png",
+            "嫌弃": "de4c0783aaa60ec03de0a2b90858927bfad7154b.png",
+            "大哭": "2caafee2e5db4db72104650d87810cc2c123fc86.png",
+            "害羞": "9d2ec4e1fbd6cb1b4d12d2bbbdd124ccb83ddfda.png",
+            "疑惑": "b7840db4b1f9f4726b7cb23c0972720c1698d661.png",
+            "喜极而泣": "485a7e0c01c2d70707daae53bee4a9e2e31ef1ed.png",
+            "奸笑": "bb84906573472f0a84cebad1e9000eb6164a6f5a.png",
+            "笑": "81edf17314cea3b48674312b4364df44d5c01f17.png",
+            "偷笑": "6c49d226e76c42cd8002abc47b3112bc5a92f66a.png",
+            "惊讶": "f8e9a59cad52ae1a19622805696a35f0a0d853f3.png",
+            "捂脸": "6921bb43f0c634870b92f4a8ad41dada94a5296d.png",
+            "阴险": "ba8d5f8e7d136d59aab52c40fd3b8a43419eb03c.png",
+            "囧": "12e41d357a9807cc80ef1e1ed258127fcc791424.png",
+            "呆": "33ad6000d9f9f168a0976bc60937786f239e5d8c.png",
+            "抠鼻": "cb89184c97e3f6d50acfd7961c313ce50360d70f.png",
+            "大笑": "ca94ad1c7e6dac895eb5b33b7836b634c614d1c0.png",
+            "惊喜": "0afecaf3a3499479af946f29749e1a6c285b6f65.png",
+            "无语": "44667b7d9349957e903b1b62cb91fb9b13720f04.png",
+            "点赞": "1a67265993913f4c35d15a6028a30724e83e7d35.png",
+            "鼓掌": "895d1fc616b4b6c830cf96012880818c0e1de00d.png",
+            "尴尬": "cb321684ed5ce6eacdc2699092ab8fe7679e4fda.png",
+            "灵魂出窍": "43d3db7d97343c01b47e22cfabeca84b4251f35a.png",
+            "委屈": "d2f26cbdd6c96960320af03f5514c5b524990840.png",
+            "傲娇": "010540d0f61220a0db4922e4a679a1d8eca94f4e.png",
+            "疼": "905fd9a99ec316e353b9bd4ecd49a5f0a301eabf.png",
+            "冷": "cb0ebbd0668640f07ebfc0e03f7a18a8cd00b4ed.png",
+            "热": "4e58a2a6f5f1580ac33df2d2cf7ecad7d9ab3635.png",
+            "生病": "0f25ce04ae1d7baf98650986454c634f6612cb76.png",
+            "吓": "9c10c5ebc7bef27ec641b8a1877674e0c65fea5d.png",
+            "吐": "06946bfe71ac48a6078a0b662181bb5cad09decc.png",
+            "捂眼": "c5c6d6982e1e53e478daae554b239f2b227b172b.png",
+            "嘘声": "e64af664d20716e090f10411496998095f62f844.png",
+            "思考": "cfa9b7e89e4bfe04bbcd34ccb1b0df37f4fa905c.png",
+            "再见": "fc510306bae26c9aec7e287cdf201ded27b065b9.png",
+            "翻白眼": "eba54707c7168925b18f6f8b1f48d532fe08c2b1.png",
+            "哈欠": "888d877729cbec444ddbd1cf4c9af155a7a06086.png",
+            "奋斗": "bb2060c15dba7d3fd731c35079d1617f1afe3376.png",
+            "墨镜": "3a03aebfc06339d86a68c2d893303b46f4b85771.png",
+            "难过": "a651db36701610aa70a781fa98c07c9789b11543.png",
+            "撇嘴": "531863568e5668c5ac181d395508a0eeb1f0cda4.png",
+            "抓狂": "4c87afff88c22439c45b79e9d2035d21d5622eba.png",
+            "生气": "3195714219c4b582a4fb02033dd1519913d0246d.png",
+            "水稻": "d530fcaa5100ba12a17a79b55bad342d530c54e3.png",
+            "奶茶干杯": "d5a491990be551ce69f9660da948050df4eab331.png",
+            "汤圆": "93609633a9d194cf336687eb19c01dca95bde719.png",
+            "锦鲤": "643d6c19c8164ffd89e3e9cdf093cf5d773d979c.png",
+            "弹幕破百亿": "80891223ba023dff3141e377f4ea3b89918eb6a4.png",
+            "福到了": "5de5373d354c373cf1617b6b836f3a8d53c5a655.png",
+            "鸡腿": "c7860392815d345fa69c4f00ef18d67dccfbd574.png",
+            "雪花": "a41813c4edf8782047e172c884ebd4507ce5e449.png",
+            "视频卫星": "dce6fc7d6dfeafff01241924db60f8251cca5307.png",
+            "干杯": "8da12d5f55a2c7e9778dcc05b40571979fe208e6.png",
+            "黑洞": "e90ec4c799010f25391179118ccd9f66b3b279ba.png",
+            "爱心": "ed04066ea7124106d17ffcaf75600700e5442f5c.png",
+            "胜利": "b49fa9f4b1e7c3477918153b82c60b114d87347c.png",
+            "加油": "c7aaeacb21e107292d3bb053e5abde4a4459ed30.png",
+            "抱拳": "89516218158dbea18ab78e8873060bf95d33bbbe.png",
+            "响指": "1b5c53cf14336903e1d2ae3527ca380a1256a077.png",
+            "保佑": "fafe8d3de0dc139ebe995491d2dac458a865fb30.png",
+            "福": "802429a301ac5b35a0480d9526a070ce67cd8097.png",
+            "支持": "3c210366a5585706c09d4c686a9d942b39feeb50.png",
+            "拥抱": "41780a4254750cdaaccb20735730a36044e98ef3.png",
+            "跪了": "f2b3aee7e521de7799d4e3aa379b01be032698ac.png",
+            "怪我咯": "07cc6077f7f7d75b8d2c722dd9d9828a9fb9e46d.png",
+            "老鼠": "8e6fb491eb1bb0d5862e7ec8ccf9a3da12b6c155.png",
+            "牛年": "9275275ff1f2659310648221107d20bc4970f106.png",
+            "三星堆": "fc7dadaa6986e75b813aa26f3eff3281d5f1a6d1.png",
+            "洛天依": "9fe06f3594d9afaf4ee2b74770f1c3086ae0ba11.png",
+            "坎公骑冠剑_吃鸡": "c4248a7b6ab326d66c83fd1fb58f1a50f99df332.png",
+            "坎公骑冠剑_钻石": "0b97c7e50e0cc963370e62fbb9b55f51bbe7f8ab.png",
+            "坎公骑冠剑_无语": "80eba0ce64c3fc1279b4daede2f1979cb2380e78.png",
+            "来古-沉思": "4ee07ff03266d62b246be0b950bebb2abf3d997c.png",
+            "来古-呆滞": "9a70b365e523f2379f395031ceefcebb75a45903.png",
+            "来古-疑问": "032fdc0d9d9fe6334776f6c39518a959b73b98f4.png",
+            "来古-震撼": "8b40f228675602a317d32007de6b795c101135ec.png",
+            "来古-注意": "4b671ba32a2581cf40e5cd41c67b111eb8010de0.png",
+            "初音未来_大笑": "8e7f71cda83ce407b0684702983399f8ed982f17.png",
+            "原神_哇": "8188ddf95bace929d382c7a83214afde79d83bfc.png",
+            "原神_哼": "91ed33b74bc36873c3ac8b2648f70d7ab6d8ab78.png",
+            "原神_嗯": "8b0a87e414f453a29730b6e0f45ca61f2f898688.png",
+            "原神_欸嘿": "8fba438fcbe0550877b04efd768d857082307c5e.png",
+            "原神_喝茶": "1de5789fbb3526ef7823c54db7081790a38e7044.png",
+            "原神_生气": "90a38c34742899f8e84138ed55f56cad3ba611fb.png",
+            "保卫萝卜_白眼": "9fce63f38288700bf7be84f3be336cf895ba0902.png",
+            "保卫萝卜_笔芯": "5ff2ed5cb71b02010018cc5910ac7052a03769af.png",
+            "保卫萝卜_哭哭": "7d249f7c990111d3e2982f7477af15b7eb29cbd9.png",
+            "保卫萝卜_哇": "5f2370e561c32d841245f7b1aab2eef43aeb9544.png",
+            "保卫萝卜_问号": "41eb93f09fc4a4d0692a310e8a1f85ba60e96060.png",
+            "无悔华夏_不愧是你": "c58002c32ee78d45366e126f294cb3149dd64ac2.png",
+            "无悔华夏_吃瓜": "273dcff577551bafff4f1eae18561f871e73a6ba.png",
+            "无悔华夏_达咩": "cffab383f47bab7f6736ba9c8d6ac098113410d9.png",
+            "无悔华夏_点赞": "b0f2e8db405ec667c3e6aaabd7c15155b6ea8710.png",
+            "无悔华夏_好耶": "324cd79784aeb37dbf2f47f68bbe8ed5d01f975e.png",
+            "奥比岛_搬砖": "1fab697214918d91087373a999cc7ef8040ddf85.png",
+            "奥比岛_点赞": "fb0b476fe2ff30cd59385ea7d616627ac114161f.png",
+            "奥比岛_击爪": "35bba1bb8f164c5e844155548438248e6eaa8382.png",
+            "奥比岛_委屈": "fda155e7c33b40dbb94c24644e0635d47b6ef3cc.png",
+            "奥比岛_喜欢": "ed64e0c81ee194138bd9df30c65077ed978fb88c.png",
+            // tv_小电视
+            "tv_白眼": "c1d59f439e379ee50eef488bcb5e5378e5044ea4.png",
+            "tv_doge": "6ea59c827c414b4a2955fe79e0f6fd3dcd515e24.png",
+            "tv_坏笑": "1f0b87f731a671079842116e0991c91c2c88645a.png",
+            "tv_难过": "87f46748d3f142ebc6586ff58860d0e2fc8263ba.png",
+            "tv_生气": "26702dcafdab5e8225b43ffd23c94ac1ff932654.png",
+            "tv_委屈": "d04dba7b5465779e9755d2ab6f0a897b9b33bb77.png",
+            "tv_斜眼笑": "911f987aa8bc1bee12d52aafe62bc41ef4474e6c.png",
+            "tv_呆": "fe1179ebaa191569b0d31cecafe7a2cd1c951c9d.png",
+            "tv_发怒": "34ba3cd204d5b05fec70ce08fa9fa0dd612409ff.png",
+            "tv_惊吓": "0d15c7e2ee58e935adc6a7193ee042388adc22af.png",
+            "tv_呕吐": "9f996894a39e282ccf5e66856af49483f81870f3.png",
+            "tv_思考": "90cf159733e558137ed20aa04d09964436f618a1.png",
+            "tv_微笑": "70dc5c7b56f93eb61bddba11e28fb1d18fddcd4c.png",
+            "tv_疑问": "0793d949b18d7be716078349c202c15ff166f314.png",
+            "tv_大哭": "23269aeb35f99daee28dda129676f6e9ea87934f.png",
+            "tv_鼓掌": "1d21793f96ef4e6f48b23e53e3b9e42da833a0f6.png",
+            "tv_抠鼻": "c666f55e88d471e51bbd9fab9bb308110824a6eb.png",
+            "tv_亲亲": "a8111ad55953ef5e3be3327ef94eb4a39d535d06.png",
+            "tv_调皮": "b9c41de8e82dd7a8515ae5e3cb63e898bf245186.png",
+            "tv_笑哭": "1abc628f6d4f4caf9d0e7800878f4697abbc8273.png",
+            "tv_晕": "5443c22b4d07fb1907ccc610c8e6db254f2461b7.png",
+            "tv_点赞": "f85c354995bd99e28fc76c869bfe42ba6438eff4.png",
+            "tv_害羞": "a37683fb5642fa3ddfc7f4e5525fd13e42a2bdb1.png",
+            "tv_睡着": "8b196675b53af58264f383c50ad0945048290b33.png",
+            "tv_色": "61822c7e9aae5da76475e7892534545336b23a6f.png",
+            "tv_吐血": "09dd16a7aa59b77baa1155d47484409624470c77.png",
+            "tv_无奈": "ea8ed89ee9878f2fece2dda0ea8a5dbfe21b5751.png",
+            "tv_再见": "180129b8ea851044ce71caf55cc8ce44bd4a4fc8.png",
+            "tv_流汗": "cead1c351ab8d79e9f369605beb90148db0fbed3.png",
+            "tv_偷笑": "bb690d4107620f1c15cff29509db529a73aee261.png",
+            "tv_抓狂": "fe31c08edad661d63762b04e17b8d5ae3c71a757.png",
+            "tv_黑人问号": "45821a01f51bc867da9edbaa2e070410819a95b2.png",
+            "tv_困": "241ee304e44c0af029adceb294399391e4737ef2.png",
+            "tv_打脸": "56ab10b624063e966bfcb76ea5dc4794d87dfd47.png",
+            "tv_闭嘴": "c9e990da7f6e93975e25fd8b70e2e290aa4086ef.png",
+            "tv_鄙视": "6e72339f346a692a495b123174b49e4e8e781303.png",
+            "tv_腼腆": "89712c0d4af73e67f89e35cbc518420380a7f6f4.png",
+            "tv_馋": "fc7e829b845c43c623c8b490ee3602b7f0e76a31.png",
+            "tv_可爱": "9e55fd9b500ac4b96613539f1ce2f9499e314ed9.png",
+            "tv_发财": "34db290afd2963723c6eb3c4560667db7253a21a.png",
+            "tv_生病": "8b0ec90e6b86771092a498c54f09fc94621c1900.png",
+            "tv_流鼻血": "c32d39db2737f89b904ca32700d140a9241b0767.png",
+            "tv_尴尬": "7cfa62dafc59798a3d3fb262d421eeeff166cfa4.png",
+            "tv_大佬": "093c1e2c490161aca397afc45573c877cdead616.png",
+            "tv_流泪": "7e71cde7858f0cd50d74b0264aa26db612a8a167.png",
+            "tv_冷漠": "b9cbc755c2b3ee43be07ca13de84e5b699a3f101.png",
+            "tv_皱眉": "72ccad6679fea0d14cce648b4d818e09b8ffea2d.png",
+            "tv_鬼脸": "0ffbbddf8a94d124ca2f54b360bbc04feb6bbfea.png",
+            "tv_调侃": "4bc022533ef31544ca0d72c12c808cf4a1cce3e3.png",
+            "tv_目瞪口呆": "0b8cb81a68de5d5365212c99375e7ace3e7891b7.png",
+            // ... 更多表情
+        }
+        
+      });
+    </script>
+  
+
+  
+  
+
+
+      </section>
+    </div>
+    <div class="widget-info">
+      <section class="widget-author widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-body">
+    
+      <img src="https://s.gravatar.com/avatar/2d6b803eea37de0257620d5fabee7e64?s=200&amp;r=g&amp;d=retro" class="soft-size--round soft-style--box" alt="Yangke">
+    
+    
+      <h2>Yangke</h2>
+    
+    
+      <p>贵在坚持</p>
+    
+
+    <div class="count-box">
+      <div class="count-box--item">
+        <svg class="icon icon-article" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M240.51564747 647.74217627h196.07203239c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806V165.10332731c0-33.18142087-30.16492806-60.32985613-60.32985612-60.32985611H245.04038668C225.43318342 104.7734712 210.35071939 119.85593522 210.35071939 139.46313845V617.57724821c0 16.59071043 13.57421762 30.16492806 30.16492808 30.16492806z m663.62841731-452.47392089v482.63884894c0 33.18142087-27.14843525 60.32985613-60.32985612 60.32985613H180.18579134c-33.18142087 0-60.32985613-27.14843525-60.32985612-60.32985613V195.26825538c-49.77213131 0-90.49478418 40.72265287-90.49478417 90.49478417v452.4739209c0 49.77213131 40.72265287 90.49478418 90.49478417 90.49478417h286.56681657c16.59071043 0 30.16492806 13.57421762 30.16492807 30.16492807s13.57421762 30.16492806 30.16492805 30.16492806h90.49478418c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806s13.57421762-30.16492806 30.16492807-30.16492807h286.56681657c49.77213131 0 90.49478418-40.72265287 90.49478417-90.49478417V285.76303955c0-49.77213131-40.72265287-90.49478418-90.49478417-90.49478417zM587.41232014 647.74217627h191.54729318c19.60720323 0 34.68966726-15.08246403 34.68966729-34.68966727V134.93839925c0-16.59071043-13.57421762-30.16492806-30.16492808-30.16492805H617.57724821c-30.16492806 0-60.32985613 27.14843525-60.32985612 60.32985611v452.4739209c0 16.59071043 13.57421762 30.16492806 30.16492805 30.16492806z" fill="currentColor"></path>
+</svg>
+        <span>7</span>
+      </div>
+      <div class="count-box--item">
+        <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
+</svg>
+        0
+      </div>
+      <div class="count-box--item">
+        <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
+</svg>
+        0
+      </div>
+    </div>
+  </div>
+</section>
+
+      
+
+      
+
+      <section class="widget-categorys widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
+</svg>
+    <span>CATEGORYS</span>
+  </div>
+  <div class="widget-body">
+    <ul class="categorys-list">
+      
+    </ul>
+  </div>
+</section>
+
+      <section class="widget-tags widget-item  layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
+</svg>
+    <span>TAGS</span>
+  </div>
+  <div class="widget-body">
+    <div class="tags-cloud">
+      
+    </div>
+  </div>
+</section>
+    </div>
+  </article>
+</div>
+
+    <!-- footer container -->
+<footer id="footer" class="footer">
+  <div class="footer-container">
+    
+    <div class="social-icons">
+      
+        
+      
+        
+      
+        
+      
+        
+          <a href="https://github.com/Yang-ke-hash/" class="soft-size--primary soft-style--box" target="_blank" rel="noopener noreferrer">
+            <svg class="icon icon-github" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M64.6 512c0 195.6 125.4 361.9 300.1 422.9 23.5 5.9 19.9-10.8 19.9-22.2v-77.6c-135.8 15.9-141.3-74-150.5-89-18.5-31.5-61.9-39.5-49-54.5 31-15.9 62.5 4 98.9 58 26.4 39.1 77.9 32.5 104.1 26 5.7-23.5 17.9-44.5 34.7-60.9-140.7-25.2-199.4-111.1-199.4-213.3 0-49.5 16.4-95.1 48.4-131.8-20.4-60.6 1.9-112.4 4.9-120.1 58.2-5.2 118.5 41.6 123.3 45.3 33.1-8.9 70.8-13.7 112.9-13.7 42.4 0 80.3 4.9 113.5 13.9 11.3-8.6 67.3-48.8 121.4-43.9 2.9 7.7 24.7 58.3 5.5 118.1 32.5 36.8 49 82.8 49 132.4 0 102.3-59 188.3-200.2 213.2 23.5 23.3 38.1 55.5 38.1 91.1v112.7c0.8 9 0 17.9 15.1 17.9C832.7 877 960.4 709.4 960.4 512.1c0-247.5-200.6-447.9-447.9-447.9C265 64.1 64.6 264.5 64.6 512z"></path>
+</svg>
+          </a>
+        
+      
+        
+      
+    </div>
+     
+    <p>&copy; 2023 <a href="/" target="_blank">Andy.yang</a></p>
+
+    
+
+    <p>Powered by <a href="https://hexo.io" target="_blank" rel="noopener noreferrer">Hexo</a> Theme - <a href="https://github.com/miiiku/flex-block" target="_blank" rel="noopener noreferrer author">flex-block</a></p>
+
+    <p>
+      <a href="javascript:;" id="theme-light">🌞 浅色</a>
+      <a href="javascript:;" id="theme-dark">🌛 深色</a>
+      <a href="javascript:;" id="theme-auto">🤖️ 自动</a>
+    </p>
+  </div>
+</footer>
+  </div>
+
+  <div class="back-to-top-fixed soft-size--round soft-style--box">
+    <svg class="icon icon-back-to-top" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <path d="M725.333333 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8l-213.333333-213.333333c-17.066667-17.066667-17.066667-42.666667 0-59.733333s42.666667-17.066667 59.733333 0l213.333333 213.333333c17.066667 17.066667 17.066667 42.666667 0 59.733333C746.666667 422.4 738.133333 426.666667 725.333333 426.666667z"></path>
+      <path d="M298.666667 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8-17.066667-17.066667-17.066667-42.666667 0-59.733333l213.333333-213.333333c17.066667-17.066667 42.666667-17.066667 59.733333 0s17.066667 42.666667 0 59.733333l-213.333333 213.333333C320 422.4 311.466667 426.666667 298.666667 426.666667z"></path>
+      <path d="M512 896c-25.6 0-42.666667-17.066667-42.666667-42.666667L469.333333 170.666667c0-25.6 17.066667-42.666667 42.666667-42.666667s42.666667 17.066667 42.666667 42.666667l0 682.666667C554.666667 878.933333 537.6 896 512 896z"></path>
+    </svg>
+  </div>
+
+  
+  <!-- aplayer -->
+
+
+<!-- dplayer -->
+
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+  
+  <!-- 尾部用户自定义相关内容 -->
+</body>
+</html>
